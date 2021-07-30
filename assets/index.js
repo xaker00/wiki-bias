@@ -52,6 +52,25 @@ clearIcon.on("click", function(){
 function search(searchTerm){
   var mainEl = $('main').empty();
   mainEl.text(searchTerm);
+  wikiSearch('searchTerm')
+        .then(function (data) {
+            console.log('data from callback', data);
+
+            pageIds = data[4]; 
+
+            //render search results here      
+
+            console.log('page IDs', pageIds);
+
+            wikiText(pageIds[0])
+                .then(function (data2) {
+                    console.log(data2);
+                    processText(data2).then(processSentiment);
+
+                    // add sentiment score to results here
+
+                });
+        });
 }
 
 
