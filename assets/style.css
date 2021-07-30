@@ -1,12 +1,39 @@
+el
+html,body { 
+    height: 100%;
+    background-color: rgb(56, 54, 54);
+}
 
-.title{
-    text-align: center;
-    font-size: 120px;
-    margin-bottom: 30px;
-    color:gainsboro;
-
+.parent {
+height: 100%;
+width:100%;
+background: rgb(56, 54, 54);
+display: flex;
+align-items: center;
+justify-content: center;
 
 }
+.child {
+
+background-color: rgb(56, 54, 54);
+width:30%;
+height: 30%;
+}
+
+.title{
+    
+    text-align: center;
+    font-size-adjust: 30px;
+    margin-bottom: 30px;
+    background-color: #009688;
+    
+
+}
+
+
+
+
+/* search */
 .wrapper {
    
     position: relative;
@@ -16,20 +43,22 @@
 .search-icon {
     
     position: absolute;
-    top: 6px;
-    left: 8px;
+    
+    top: 4px;
+    left: 7px;
     width: 14px;
 }
 
 .clear-icon {
     
     position: absolute;
-    top: 8px;
+    top: 6px;
     right: 8px;
     width: 10px;
     cursor: pointer;
-    visibility: hidden;
+    
 }
+
 .search {
     
     border: 1px solid grey;
@@ -47,24 +76,7 @@
     background-color: white;
 }
 
-html,
-body { height: 100%;
-}
-.parent {
-height: 100%;
-width:100%;
-background: rgb(56, 54, 54);
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.child {
 
-background-color: rgb(56, 54, 54);
-width:30%;
-height: 30%;
-}
-
-body{
-    background-color: rgb(56, 54, 54);
+.hidden{
+    display: none;
 }
