@@ -7,7 +7,6 @@
 
 */
 
-<<<<<<< HEAD
 var clearIcon = $(".clear-icon");
 var searchBar = $(".search");
 var searchInput= "";
@@ -83,36 +82,38 @@ clearIcon.addEventListener("click", () => {
   clearIcon.style.visibility = "hidden";
 })
 */
-=======
-processText("This is a very boring project", processSentiment);
-processText("This is a  fun project", processSentiment);
+function apiTests() {
+    processText("This is a very boring project").then(processSentiment);
+    processText("This is a  fun project").then(processSentiment);
 
-function processSentiment(data){
-    console.log(data);
+    function processSentiment(data) {
+        console.log(data);
+    }
+
+
+    wikiLatestEdits()
+        .then(function (data) {
+            console.log('data from callback', data);
+        });
+
+
+    wikiSearch('Walt disney')
+        .then(function (data) {
+            console.log('data from callback', data);
+
+            pageIds = data[4];
+
+            console.log('page IDs', pageIds);
+
+            wikiText(pageIds[0])
+                .then(function (data2) {
+                    console.log(data2);
+                    processText(data2).then(processSentiment);
+
+                });
+        });
+
 }
 
-
-wikiLatestEdits(function(data){
-    console.log('data from callback', data);
-});
-
-
-wikiSearch('donald trump', function(data){
-    console.log('data from callback', data);
-
-    pageIds=data[4];
-
-    console.log(pageIds);
-
-    wikiText(pageIds[0], function(data2){
-        console.log(data2);
-        processText(data2, processSentiment);
-
-});
-});
-
-// wikiText(4848272, function(data){
-//     console.log(data);
-//     processText(data, processSentiment);
-// });
->>>>>>> master
+apiTests();
+ 
