@@ -49,30 +49,64 @@ clearIcon.on("click", function(){
 
 
 
-function search(searchTerm){
-  var mainEl = $('main').empty();
-  mainEl.text(searchTerm);
-  wikiSearch('searchTerm')
+function search(searchTerm) {
+    var mainEl = $('main').empty();
+    mainEl.text(searchTerm);
+    wikiSearch(searchTerm)
         .then(function (data) {
             console.log('data from callback', data);
 
-            pageIds = data[4]; 
+            pageIds = data[4];
 
-            //render search results here      
+            //render search results here    
+            displaySearchResults(data);
+
 
             console.log('page IDs', pageIds);
 
-            wikiText(pageIds[0])
-                .then(function (data2) {
-                    console.log(data2);
-                    processText(data2).then(processSentiment);
+            for (var i = 0; i < pageIds.length; i++) {
+                wikiText(pageIds[i])
+                    .then(function (data2) {
+                        console.log(data2);
+                        return data2;
+                    })
+                    .then(function (data2) {
+                        processText(data2).then(function (score) {
 
-                    // add sentiment score to results here
+                            // add sentiment score to results here  
+                            displaySentinentScore(i, score);
+                        });
+                    });
+            }
 
-                });
+
         });
 }
 
+function displaySearchResults(data){
+  console.log('displaySearchResults data', data);
+  
+  /* data array 
+  0 search term
+  1 titles
+  2 ?
+  3 URLs
+  4 page id
+  */
+
+  var titles = data[1];
+  var urls = data[3];
+  for(var i=0; i<titles.length; i++){
+    var rowEl = $('<div>').attr('id', 'result' + i).text(titles[i]);
+
+    $('main').append(rowEl);
+  }
+}
+
+function displaySentinentScore(i, score){
+  console.log('displaySentinentScore', i);  
+  $(`#result${i}`).text(score);
+}
 
 //search funtion paramenter of keyword
 
