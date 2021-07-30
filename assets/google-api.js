@@ -10,14 +10,18 @@
 
 var key = 'AIzaSyAXxKnXI2n5m5-G35b2SMuftIKM3Hga7RY';
 
-// send {magnitude: 0.9, score: -0.9} to the callback
-function processText(text, callback){
+/**
+ * Get sentiment analysis by Google
+ * @param {*} text 
+ * @returns A Promise with the sentiment analysis object such as {magnitude: 0.9, score: -0.9}
+ */
+function processText(text){
     var result = {magnitude: 0.9, score: -0.9};
     // call the google api here and populate result
     var url = 'https://language.googleapis.com/v1/documents:analyzeSentiment?key=' + key;
 
     // https://cloud.google.com/natural-language/docs/reference/rest/v1/documents/analyzeSentiment?hl=en_US
-    fetch(url,{
+    return fetch(url,{
         method: 'POST',
         body: JSON.stringify({
             // https://cloud.google.com/natural-language/docs/reference/rest/v1/documents?hl=en_US#Document
@@ -31,6 +35,6 @@ function processText(text, callback){
     })
     .then(response => response.json())
     .then(function(data){
-        callback(data.documentSentiment);
+        return data.documentSentiment;
     });
 }
