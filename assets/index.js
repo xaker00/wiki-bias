@@ -71,30 +71,13 @@ function search(searchTerm) {
             displaySearchResults(data);
             
 
+            //console.log('page IDs', pageIds);
 
-            console.log('page IDs', pageIds);
-
-            for (var i = 1; i < pageIds.length; i++) {
-                wikiText(pageIds[i])
-                    .then(function (data2) {
-                        console.log(data2);
-                        
-                        
-                        return data2;
-                    })
-                    .then(function (data2) {
-                        processText(data2).then(function (score) {
-                            displaySearchResults(data);  //Moving displaySearchResults function inside the forloop. Removing the forloop in the function.
-                            displayDescript(data2)       //Runs the function that displays the first few sentences of the wiki page.
-
-
-                            // add sentiment score to results here  
-                            displaySentinentScore(i, score);
-                        });
-                    });
-            }
-
-
+            Promise.all(
+                pageIds.map(id => wikiText(id))
+                //textArray
+            )
+            .then((text) => console.log(text));
         });
 }
 
@@ -130,8 +113,8 @@ function displaySearchResults(data){
   
 }
 
-function displaySentinentScore(i, score){
-  console.log('displaySentinentScore', i);  
+function displaySentimentScore(i, score){
+  console.log('displaySentimentScore', i);  
   $(`#result${i}`).text(score);
 }
 
