@@ -65,7 +65,7 @@ function search(searchTerm) {
             pageIds = data[4];
 
             //render search results here    
-            displaySearchResults(data);
+            displaySearchResults(data); 
             
 
             //console.log('page IDs', pageIds);
