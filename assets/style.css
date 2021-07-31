@@ -1,5 +1,5 @@
-el
-html,body { 
+
+html,body, main { 
     height: 100%;
     background-color: rgb(56, 54, 54);
 }
@@ -23,9 +23,9 @@ height: 30%;
 .title{
     
     text-align: center;
-    font-size-adjust: 30px;
-    margin-bottom: 30px;
-    background-color: #009688;
+    
+    margin-bottom: 40px;
+    
     
 
 }
@@ -42,20 +42,22 @@ height: 30%;
 }
 .search-icon {
     
-    position: absolute;
-    
-    top: 4px;
-    left: 7px;
-    width: 14px;
+    position: relative;
+    z-index:1;
+    top: 3px;
+    left: 27px;
+    width: 20px;
+   
 }
 
 .clear-icon {
     
     position: absolute;
-    top: 6px;
-    right: 8px;
-    width: 10px;
+    top: 19px;
+    right: 10px;
+    width: 20px;
     cursor: pointer;
+    
     
 }
 
@@ -68,6 +70,8 @@ height: 30%;
     padding: 2px 23px 2px 30px;
     outline: 0;
     background-color: #f5f5f5;
+    text-indent: 10px;
+    
 }
 
 

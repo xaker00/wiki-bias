@@ -47,10 +47,19 @@ clearIcon.on("click", function(){
     clearIcon.addClass("hidden");
 })
 
+function renderSearchBar(){
+  var searchBarResultPage = $('<div>').text("hey");
+  $('main').prepend(searchBarResultPage);
+  
+}
 
-
+var description = "";    //initializing variables for decripton
+var j = 0;  //initializing variable to increment through the array of titles, page id, etc.
 function search(searchTerm) {
     var mainEl = $('main').empty();
+
+    renderSearchBar();
+
     mainEl.text(searchTerm);
     wikiSearch(searchTerm)
         .then(function (data) {
@@ -60,18 +69,24 @@ function search(searchTerm) {
 
             //render search results here    
             displaySearchResults(data);
+            
 
 
             console.log('page IDs', pageIds);
 
-            for (var i = 0; i < pageIds.length; i++) {
+            for (var i = 1; i < pageIds.length; i++) {
                 wikiText(pageIds[i])
                     .then(function (data2) {
                         console.log(data2);
+                        
+                        
                         return data2;
                     })
                     .then(function (data2) {
                         processText(data2).then(function (score) {
+                            displaySearchResults(data);  //Moving displaySearchResults function inside the forloop. Removing the forloop in the function.
+                            displayDescript(data2)       //Runs the function that displays the first few sentences of the wiki page.
+
 
                             // add sentiment score to results here  
                             displaySentinentScore(i, score);
@@ -81,6 +96,11 @@ function search(searchTerm) {
 
 
         });
+}
+
+function displayDescript(data2){
+  var rowE3 = $('<div>').attr('id', 'description').text(" DESCRIPTION: "+data2.substring(0,200)+("...")); //adds a div containing the first 200 letters of the wiki page.
+  $('main').append(rowE3);
 }
 
 function displaySearchResults(data){
@@ -96,11 +116,18 @@ function displaySearchResults(data){
 
   var titles = data[1];
   var urls = data[3];
-  for(var i=0; i<titles.length; i++){
-    var rowEl = $('<div>').attr('id', 'result' + i).text(titles[i]);
+  var pageID=data[4];
+  console.log(description);
+  
+  var rowEl = $('<div>').attr('id', 'result'+j).text(titles[j]);
+  var rowE2 = $('<div>').attr('id', 'result'+j).text(urls[j]);
 
-    $('main').append(rowEl);
-  }
+  $('main').append(rowEl);
+  $('main').append(rowE2);
+  j++; //increments to update the title and url to the next element in the array.
+  
+   
+  
 }
 
 function displaySentinentScore(i, score){
