@@ -35,7 +35,6 @@ searchBar.on("keyup", () => {
 searchBar.keypress(function(event){
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if(keycode == '13'){
-
         searchInput=searchBar.val().trim();
         console.log(searchInput);
         search(searchInput);
@@ -53,8 +52,6 @@ function renderSearchBar(){
   
 }
 
-var description = "";    //initializing variables for decripton
-var j = 0;  //initializing variable to increment through the array of titles, page id, etc.
 function search(searchTerm) {
     var mainEl = $('main').empty();
 
@@ -79,12 +76,18 @@ function search(searchTerm) {
             )
             .then((text) => console.log(text));
         });
+
+        console.log("fdsfdasf");
 }
 
-function displayDescript(data2){
-  var rowE3 = $('<div>').attr('id', 'description').text(" DESCRIPTION: "+data2.substring(0,200)+("...")); //adds a div containing the first 200 letters of the wiki page.
-  $('main').append(rowE3);
+function displayDescription(i, data){
+  const descriptionEl = $('#description' + i).empty();
+  descriptionEl.text(data);
+  
+  //var rowE3 = $('<div>').attr('id', 'description').text(" DESCRIPTION: "+data2.substring(0,200)+("...")); //adds a div containing the first 200 letters of the wiki page.
+  // $('main').append(rowE3);
 }
+
 
 function displaySearchResults(data){
   console.log('displaySearchResults data', data);
@@ -100,22 +103,54 @@ function displaySearchResults(data){
   var titles = data[1];
   var urls = data[3];
   var pageID=data[4];
-  console.log(description);
   
-  var rowEl = $('<div>').attr('id', 'result'+j).text(titles[j]);
-  var rowE2 = $('<div>').attr('id', 'result'+j).text(urls[j]);
+  for(var i =0; i<titles.length; i++){
 
-  $('main').append(rowEl);
-  $('main').append(rowE2);
-  j++; //increments to update the title and url to the next element in the array.
+    //var rowEl = $('<div>').attr('id', 'result'+ i).text(titles[i]);
+    //var rowE2 = $('<div>').attr('id', 'result'+ i).text(urls[i]);
+
+    const containerEl = $('<div>');
+    const titleEl = $('<div>').text(titles[i]);
+    const urlEl = $('<div>').text(urls[i]);
+    const descriptionEl = $('<div>').attr('id', 'description'+ i);
+    const sentimentEl = $('<div>').attr('id', 'sentiment'+ i);
+
+    containerEl.append(titleEl, urlEl, descriptionEl, sentimentEl);
+
+    $('main').append(containerEl);
+    
+
+/*
+<div id=result1>
+    <div> title
+    <div> URL
+    <div id=description1>
+    <div id=sentiment1>
+</div>
+
+*/
+
+
+
+  }
+
+  //$('main').append(rowEl);
+  //$('main').append(rowE2);
   
+
+  // for testing only - delete once API is working correctly
+  for(let x=0; x<10; x++){
+    displayDescription(x, 'Loading... ' + (1+x));
+    displaySentimentScore(x, 'score ' + (1+x));
+  }
+
    
   
 }
 
 function displaySentimentScore(i, score){
-  console.log('displaySentimentScore', i);  
-  $(`#result${i}`).text(score);
+  const sentimentEl = $('#sentiment' + i).empty();
+  sentimentEl.text(score);
 }
 
 //search funtion paramenter of keyword
