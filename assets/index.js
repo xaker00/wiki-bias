@@ -46,8 +46,9 @@ clearIcon.on("click", function(){
     clearIcon.addClass("hidden");
 })
 
+
 function renderSearchBar(){
-  var searchBarResultPage = $('<div>').text("hey");
+  var searchBarResultPage = $('<div>').attr();
   $('main').prepend(searchBarResultPage);
   
 }
@@ -111,7 +112,7 @@ function displaySearchResults(data){
 
     const containerEl = $('<div>');
     const titleEl = $('<div>').text(titles[i]);
-    const urlEl = $('<div>').text(urls[i]);
+    const urlEl = $('<a>').text(urls[i]).attr("href", urls[i]);
     const descriptionEl = $('<div>').attr('id', 'description'+ i);
     const sentimentEl = $('<div>').attr('id', 'sentiment'+ i);
 
