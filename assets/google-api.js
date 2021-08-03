@@ -8,7 +8,7 @@
 
 */
 
-var key = '';
+var key = 'AIzaSyAXxKnXI2n5m5-G35b2SMuftIKM3Hga7RY';
 
 /**
  * Get sentiment analysis by Google
