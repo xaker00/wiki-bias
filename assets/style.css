@@ -5,32 +5,23 @@ html,body, main {
 }
 
 .parent {
-height: 100%;
-width:100%;
-background: rgb(56, 54, 54);
-display: flex;
-align-items: center;
-justify-content: center;
-
+    height: 100%;
+    width:100%;
+    background: rgb(56, 54, 54);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .child {
-
-background-color: rgb(56, 54, 54);
-width:30%;
-height: 30%;
+    background-color: rgb(56, 54, 54);
+    width:50%;
+    height: 50%;
 }
 
 .title{
-    
     text-align: center;
-    
     margin-bottom: 40px;
-    
-    
-
 }
-
-
 
 
 /* search */
@@ -41,37 +32,30 @@ height: 30%;
     min-width: 100px;
 }
 .search-icon {
-    
     position: relative;
     z-index:1;
     top: 3px;
     left: 27px;
     width: 20px;
-   
 }
 
 .clear-icon {
-    
     position: absolute;
-    top: 19px;
+    top: 10px;
     right: 10px;
     width: 20px;
-    cursor: pointer;
-    
-    
+    cursor: pointer;   
 }
 
-.search {
-    
+.search { 
     border: 1px solid grey;
     border-radius: 5px;
-    height: 20px;
+    height: 100%;
     width: 100%;
     padding: 2px 23px 2px 30px;
     outline: 0;
     background-color: #f5f5f5;
-    text-indent: 10px;
-    
+    text-indent: 10px; 
 }
 
 
