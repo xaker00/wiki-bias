@@ -114,7 +114,7 @@ function displaySearchResults(data) {
     <div class="card m-1">
       <header class="card-header">
         <div class="card-header-title">
-          ${titles[i]}<span class="sentiment" id="sentiment${i}"></span>
+        <a href="${urls[i]}" target="blank">${titles[i]}</a><span class="sentiment" id="sentiment${i}"></span>
         </div>
       </header>
       <div class="card-content">
