@@ -10,9 +10,41 @@
 const clearIcon = $(".clear-icon");
 const searchBar = $(".search");
 var searchInput = "";
+// get the saved theme and apply it
+var theme = localStorage.getItem('theme');
+setTheme(theme);
 
+// switch theme when day/night icon is clicked
+$('#switch-mode').on('click', () => {
+  if(theme == 'flatly'){
+    theme = 'darkly';
+  }else if(theme == 'darkly'){
+    theme = 'flatly';
+  }
+  setTheme(theme);
+});
+
+function setTheme(theme){
+  // save them preference to local storage
+  localStorage.setItem('theme', theme);
+  let href='';
+  switch (theme){
+    case 'darkly':
+      href="https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css";
+      break;
+    case 'flatly':
+      href="https://jenil.github.io/bulmaswatch/flatly/bulmaswatch.min.css";
+    default:
+      // if the theme does not match any known themes, set it to flatly
+      href="https://jenil.github.io/bulmaswatch/flatly/bulmaswatch.min.css";
+      localStorage.setItem('theme', 'flatly');
+  }
+  $("#css-theme").attr('href', href);
+}
+
+// show clear button if there is text in the search bar
 searchBar.on("keyup", () => {
-  console.log("change");
+  //console.log("change");
   if (searchBar.val() == "") {
     clearIcon.addClass("hidden");
   } else {
@@ -20,6 +52,7 @@ searchBar.on("keyup", () => {
   }
 });
 
+// start searching when Enter key is pressed
 searchBar.keypress(function (event) {
   const keycode = event.keyCode ? event.keyCode : event.which;
   if (keycode == "13") {
@@ -29,22 +62,16 @@ searchBar.keypress(function (event) {
   }
 });
 
+// handle clear button event
 clearIcon.on("click", function () {
   searchBar.val("");
   clearIcon.addClass("hidden");
 });
 
-function renderSearchBar() {
-  var searchBarResultPage = $("<div>").attr();
-  $("main").prepend(searchBarResultPage);
-}
-
+// the main search function
 function search(searchTerm) {
-  //var mainEl = $("main").empty();
   $("#search-result").empty();
-  $('.parent').css('height', 'auto');
-
-  //renderSearchBar();
+  $('.parent').css('height', 'auto').css('padding', '20px');
 
   wikiSearch(searchTerm).then(function (data) {
     //console.log('data from callback', data);
@@ -81,11 +108,13 @@ function shorten(str, maxLen, separator = " ") {
   return str.substr(0, str.lastIndexOf(separator, maxLen));
 }
 
+// update the description
 function displayDescription(i, data) {
   const descriptionEl = $("#description" + i).empty();
   descriptionEl.text(data);
 }
 
+// build out the result skeleton
 function displaySearchResults(data) {
   console.log("displaySearchResults data", data);
 
@@ -145,6 +174,7 @@ function displaySearchResults(data) {
   }
 }
 
+// show the sentiment
 function displaySentimentScore(i, score) {
   const sentimentEl = $("#sentiment" + i).empty();
   sentimentEl.text(score);
