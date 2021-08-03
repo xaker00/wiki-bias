@@ -68,3 +68,9 @@ html,body, main {
 .hidden{
     display: none;
 }
+
+
+.sentiment {
+    flex-grow: 2;
+    text-align: right;
+}

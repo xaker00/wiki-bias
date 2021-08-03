@@ -40,11 +40,12 @@ function renderSearchBar() {
 }
 
 function search(searchTerm) {
-  var mainEl = $("main").empty();
+  //var mainEl = $("main").empty();
+  $("#search-result").empty();
+  $('.parent').css('height', 'auto');
 
   //renderSearchBar();
 
-  mainEl.text(searchTerm);
   wikiSearch(searchTerm).then(function (data) {
     //console.log('data from callback', data);
 
@@ -101,15 +102,30 @@ function displaySearchResults(data) {
   //var pageID = data[4];
 
   for (var i = 0; i < titles.length; i++) {
-    const containerEl = $("<div>");
-    const titleEl = $("<div>").text(titles[i]);
+    const containerEl = $("<div>").addClass("card");
+    const titleEl = $("<div>").addClass("card-content").text(titles[i]);
     const urlEl = $("<a>").text(urls[i]).attr("href", urls[i]);
     const descriptionEl = $("<div>").attr("id", "description" + i);
     const sentimentEl = $("<div>").attr("id", "sentiment" + i);
 
     containerEl.append(titleEl, urlEl, descriptionEl, sentimentEl);
 
-    $("main").append(containerEl);
+    const htmlEl = `
+    <div class="card m-1">
+      <header class="card-header">
+        <div class="card-header-title">
+          ${titles[i]}<span class="sentiment" id="sentiment${i}"></span>
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content" id="description${i}">
+        </div>          
+    </div> 
+
+    `;
+
+
+    $("#search-result").append(htmlEl);//containerEl);
 
     /*
 <div id=result1>
